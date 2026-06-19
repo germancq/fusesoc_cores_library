@@ -1,0 +1,46 @@
+CAPI=2:
+
+name : ::present_ctr_block_cipher:1
+description : present_ctr block cipher
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: present_ctr_test
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: present_ctr
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - present_block_cipher/ctr_mode/hdl/present_ctr.sv
+    depend:
+      - present_block_cipher
+      - adder
+
+  cocotb:
+     files:
+       - present_block_cipher/ctr_mode/cocotb/present_ctr_test.py : {file_type : user, copyto: .}
+       - present_block_cipher/ctr_mode/python/present_ctr.py : {file_type : user, copyto: .}
+     depend
+       - vlog_tb_utils
+
+
+provider:
+    name: github
+    user: germancq
+    repo: present_block_cipher
+    version: main
+
+
+

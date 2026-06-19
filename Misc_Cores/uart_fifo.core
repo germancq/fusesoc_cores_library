@@ -1,0 +1,41 @@
+CAPI=2:
+
+name : ::uart_fifo:1
+description : uart_fifo
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+
+parameters:
+  BAUDIOS:
+    datatype: int
+    paramtype: vlogparam
+  CLK_HZ:
+    datatype: int
+    paramtype: vlogparam
+  FIFO_DEPTH:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - uart_fifo/hdl/uart_fifo.sv
+    depend:
+      - uart
+      - stack
+
+
+
+provider:
+    name: github
+    user: germancq
+    repo: Misc_Cores
+    version: main
+
+
+

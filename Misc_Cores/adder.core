@@ -1,0 +1,50 @@
+CAPI=2:
+
+name : ::adder:1
+description : adder
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_adder
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: adder
+    parameters:
+      - N=4
+
+parameters:
+  N:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - adder/hdl/adder.sv
+    depend:
+      - full_adder
+
+  cocotb:
+     files:
+       - adder/cocotb/test_adder.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main
+
+

@@ -1,0 +1,50 @@
+CAPI=2:
+
+name : ::twofish_block_cipher_ctr:1
+description : twofish block cipher ctr mode
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: twofish_ctr_test
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: twofish_ctr
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - twofish_block_cipher/ctr_mode/hdl/twofish_ctr.sv
+    depend:
+      - register
+      - mux
+      - counter
+      - galois_adder
+      - matrix_multiplication 
+      - adder 
+
+  cocotb:
+     files:
+       - twofish_block_cipher/ctr_mode/cocotb/twofish_ctr_test.py : {file_type : user, copyto: .}
+       - twofish_block_cipher/ctr_mode/python/twofish_ctr.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+provider:
+    name: github
+    user: germancq
+    repo: twofish_block_cipher
+    version: main
+
+
+

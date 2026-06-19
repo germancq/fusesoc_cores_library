@@ -1,0 +1,31 @@
+CAPI=2:
+
+name : ::fast_adder:1
+description : fast_adder
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+parameters:
+  N:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - fast_adder/hdl/fast_adder.sv
+      - fast_adder/hdl/fast_adder_4.sv
+      - fast_adder/hdl/full_adder_propagation.sv
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main
+
+

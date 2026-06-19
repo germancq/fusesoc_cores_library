@@ -1,0 +1,44 @@
+CAPI=2:
+
+name : ::full_adder:1
+description : full adder
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_full_adder
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: full_adder
+
+
+filesets:
+   rtl:
+     file_type: systemVerilogSource
+     files:
+       - full_adder/hdl/full_adder.sv
+     depend:
+       - half_adder
+   
+   cocotb:
+     files:
+       - full_adder/cocotb/test_full_adder.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main
+
+
+

@@ -1,0 +1,38 @@
+CAPI=2:
+
+name : ::uart_hafl_duplex:1
+description : uart_hafl_duplex
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+
+parameters:
+  BAUDIOS:
+    datatype: int
+    paramtype: vlogparam
+  CLK_HZ:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - uart_hafl_duplex/hdl/uart_hafl_duplex.sv
+      - uart_hafl_duplex/hdl/half_duplex.sv
+    depend:
+      - uart
+
+
+
+provider:
+    name: github
+    user: germancq
+    repo: Misc_Cores
+    version: main
+
+
+

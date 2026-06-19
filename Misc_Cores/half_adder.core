@@ -1,0 +1,43 @@
+CAPI=2:
+
+name : ::half_adder:1
+description : half adder
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+  
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_half_adder
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: half_adder
+
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - half_adder/hdl/half_adder.sv
+
+  cocotb:
+     files:
+       - half_adder/cocotb/test_half_adder.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main
+
+

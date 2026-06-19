@@ -1,0 +1,58 @@
+CAPI=2:
+
+name : ::memory_module:1
+description : memory_module
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+  
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_memory_module
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: memory_module
+    parameters:
+      - ADDR=4
+      - DATA_WIDTH=8
+      - FILE_MEM="init.mem"
+
+parameters:
+  ADDR:
+    datatype: int
+    paramtype: vlogparam
+  DATA_WIDTH:
+    datatype: int
+    paramtype: vlogparam
+  FILE_MEM:
+    datatype: str
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - memory_module/hdl/memory_module.sv
+
+  cocotb:
+     files:
+       - memory_module/cocotb/test_memory_module.py : {file_type : user, copyto: .}
+       - memory_module/hdl/init.mem : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main
+
+

@@ -1,0 +1,58 @@
+CAPI=2:
+
+name : ::uart_rx:1
+description : uart_rx
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+  
+
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_uart_rx
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: uart_rx
+    parameters:
+      - BAUDIOS=9600
+      - CLK_HZ=100000000
+
+parameters:
+  BAUDIOS:
+    datatype: int
+    paramtype: vlogparam
+  CLK_HZ:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - uart_rx/hdl/uart_rx.sv
+    depend:
+      - shift_register
+      - counter
+
+  cocotb:
+     files:
+       - uart_rx/cocotb/test_uart_rx.py : {file_type : user, copyto: .}
+       - uart_rx/cocotb/UART_RX.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+
+provider:
+    name: github
+    user: germancq
+    repo: Misc_Cores
+    version: main
+
+

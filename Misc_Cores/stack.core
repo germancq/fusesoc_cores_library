@@ -1,0 +1,35 @@
+CAPI=2:
+
+name : ::stack:1
+description : stack
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+parameters:
+  WIDTH:
+    datatype: int
+    paramtype: vlogparam
+  DEPTH:
+    datatype: int
+    paramtype: vlogparam
+  FIFO_LIFO:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - stack/hdl_code/stack.sv
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main
+
+

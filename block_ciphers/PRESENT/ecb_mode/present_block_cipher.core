@@ -1,0 +1,48 @@
+CAPI=2:
+
+name : ::present_block_cipher:1
+description : present block cipher
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: present_test
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: present
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - present_block_cipher/ecb_mode/hdl/present.sv
+      - present_block_cipher/ecb_mode/hdl/present_misc.sv
+    depend:
+      - register
+      - counter
+      - memory_module
+
+  cocotb:
+     files:
+       - present_block_cipher/ecb_mode/cocotb/present_test.py : {file_type : user, copyto: .}
+       - present_block_cipher/ecb_mode/python/present.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+provider:
+    name: github
+    user: germancq
+    repo: present_block_cipher
+    version: main
+
+
+

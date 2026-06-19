@@ -1,0 +1,48 @@
+CAPI=2:
+
+name : ::shift_register:1
+description : shift_register
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_shift_register
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: shift_register
+    parameters:
+      - DATA_WIDTH=4
+
+parameters:
+  DATA_WIDTH:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - shift_register/hdl/shift_register.sv
+
+  cocotb:
+     files:
+       - shift_register/cocotb/test_shift_register.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+provider:
+    name: github
+    user: germancq
+    repo: Misc_Cores
+    version: main
+
+

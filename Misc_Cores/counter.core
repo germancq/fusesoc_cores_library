@@ -1,0 +1,49 @@
+CAPI=2:
+
+name : ::counter:1
+description : counter
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_counter
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: counter
+    parameters:
+      - DATA_WIDTH=4
+
+parameters:
+  DATA_WIDTH:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - counter/hdl/counter.sv
+      - counter/hdl/counter_limit.sv
+
+  cocotb:
+     files:
+       - counter/cocotb/test_counter.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores 
+  version : main
+

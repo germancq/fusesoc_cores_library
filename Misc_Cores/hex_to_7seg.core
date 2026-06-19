@@ -1,0 +1,41 @@
+CAPI=2:
+
+name : ::hex_to_7seg:1
+description : hex_to_7seg
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_hex_to_7seg
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: hex_to_7seg
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - hex_to_7seg/hdl/hex_to_7seg.sv
+
+  cocotb:
+     files:
+       - hex_to_7seg/cocotb/test_hex_to_7seg.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main
+
+

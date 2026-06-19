@@ -1,0 +1,32 @@
+CAPI=2:
+
+name : ::LFSR:1
+description : LFSR
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+parameters:
+  LSB:
+    datatype: int
+    paramtype: vlogparam
+  DATA_WIDTH:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - LFSR/hdl/LFSR.sv
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main
+
+

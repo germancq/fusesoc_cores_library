@@ -1,0 +1,62 @@
+CAPI=2:
+
+name : ::mux:1
+description : generic mux
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+  
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_mux
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: mux
+    parameters:
+      - N=4
+
+  tang_nano9k:
+    flow: apicula
+    filesets:
+      - rtl
+      - tang_nano9k_constraints
+    flow_options:
+      board: tangnano9k
+    toplevel: mux
+    parameters:
+      - N=1
+
+
+parameters:
+  N:
+    datatype: int
+    paramtype: vlogparam
+
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - mux/hdl/mux.sv
+
+  cocotb:
+    files:
+      - mux/cocotb/test_mux.py : {file_type : user, copyto: .}
+    depend:
+      - vlog_tb_utils
+ 
+  tang_nano9k_constraints:
+    files:
+      - mux/constraints/tang_nano_9k.cst: {file_type : CST}
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main

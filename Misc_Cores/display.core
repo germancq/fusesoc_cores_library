@@ -1,0 +1,75 @@
+CAPI=2:
+
+name : ::display:1
+description : display
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+  
+  tang_nano9k:
+    flow: apicula
+    filesets:
+      - rtl
+      - tang_nano9k_constraints
+    flow_options:
+      board: tangnano9k
+    parameters:
+      - clk_freq_hz=27_000_000
+    toplevel: display
+
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_display
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: display
+    parameters:
+      - CLK_HZ=100000000
+      - N=16
+      - FREC_DISPLAY=500
+
+parameters:
+  CLK_HZ:
+    datatype: int
+    paramtype: vlogparam
+  FREC_DISPLAY:
+    datatype: int
+    paramtype: vlogparam
+  N:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - display/hdl/display.sv
+    depend:
+      - counter
+      - hex_to_7seg
+
+  cocotb:
+     files:
+       - display/cocotb/test_display.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+
+  tang_nano9k_constraints:
+      files:
+        - display/constraints/tang_nano_9k.cst : {file_type : CST}
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main
+

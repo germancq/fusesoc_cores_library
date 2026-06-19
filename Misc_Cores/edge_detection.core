@@ -1,0 +1,32 @@
+CAPI=2:
+
+name : ::edge_detection:1
+description : edge_detection
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+parameters:
+  LSB:
+    datatype: int
+    paramtype: vlogparam
+  DATA_WIDTH:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - edge_detection/hdl/edge_detection.sv
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Misc_Cores
+  version : main
+
+
