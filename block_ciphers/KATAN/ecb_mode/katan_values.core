@@ -1,0 +1,52 @@
+CAPI=2:
+
+name : ::katan_values:0
+description : katan values cte 
+
+targets:
+  default:
+    filesets: 
+      - rtl
+
+  sim : 
+    flow : sim
+    flow_options :
+      tool : verilator 
+      verilator_options : [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module : katan_values_test
+      timescale : 1ns/1ns
+      vcs_options : [-timescale=1ns/1ns]
+    filesets : [rtl ,cocotb]  
+    toplevel : katan_values
+    parameters :
+      - N=32
+
+parameters :
+  N :
+    datatype : int
+    paramtype : vlogparam
+
+filesets:
+  cocotb :
+    files :
+      - ecb_mode/cocotb/katan_values_test.py : {file_type : user, copyto : .}
+      - ecb_mode/python/katan.py : {file_type : user, copyto : .}
+      - ecb_mode/python/LFSR.py : {file_type : user, copyto : .}
+    depend :
+      - vlog_tb_utils
+
+
+  rtl:
+    file_type: systemVerilogSource
+    files: 
+      - ecb_mode/hdl/katan_values.sv      
+
+provider:
+    name: github
+    user: germancq
+    repo: katan_block_cipher
+    version: main
+
+
+
+

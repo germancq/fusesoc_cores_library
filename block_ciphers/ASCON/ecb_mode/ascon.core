@@ -1,0 +1,60 @@
+CAPI=2:
+
+name : ::ascon:0
+description : ascon
+
+targets:
+  default:
+    filesets: 
+      - rtl
+
+parameters :
+  BLK_LEN :
+    datatype : int
+    paramtype : vlogparam
+  KEY_LEN :
+    datatype : int
+    paramtype : vlogparam
+  rate :
+    datatype : int
+    paramtype : vlogparam
+  a :
+    datatype : int
+    paramtype : vlogparam
+  b :
+    datatype : int
+    paramtype : vlogparam
+  version :
+    datatype : int
+    paramtype : vlogparam
+  a_len :
+    datatype : int
+    paramtype : vlogparam
+  plaintext_len :
+    datatype : int
+    paramtype : vlogparam
+
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files: 
+      - ecb_mode/hdl/encrypt.sv      
+    depend:
+      - ascon_encrypt
+
+provider:
+    name: github
+    user: germancq
+    repo: ascon_block_cipher
+    version: main
+
+
+
+
+
+
+
+
+
+

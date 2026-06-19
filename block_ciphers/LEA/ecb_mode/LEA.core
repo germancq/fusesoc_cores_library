@@ -1,0 +1,56 @@
+CAPI=2:
+
+name : ::LEA:0
+description : LEA block cipher
+
+targets:
+  default:
+    filesets: 
+       - rtl
+
+  sim : 
+    flow : sim
+    flow_options :
+      tool : verilator 
+      verilator_options : [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module : lea_test
+      timescale : 1ns/1ns
+      vcs_options : [-timescale=1ns/1ns]
+    filesets : [rtl ,cocotb]  
+    toplevel : LEA
+    parameters :
+      - KEY_LEN=128
+
+parameters :
+  KEY_LEN :
+    datatype : int
+    paramtype : vlogparam
+
+filesets:
+    rtl:
+        file_type: systemVerilogSource
+        files: 
+            - ecb_mode/hdl/LEA.sv
+            - ecb_mode/hdl/LEA_Key_schedule.sv
+            - ecb_mode/hdl/LEA_enc.sv
+        depend:
+            - counter
+            - mux
+            - memory_module
+            - register
+            - helpers
+
+  cocotb :
+    files :
+      - ecb_mode/cocotb/lea_test.py : {file_type : user, copyto : .}
+      - ecb_mode/python/LEA.py : {file_type : user, copyto : .}
+    depend :
+      - vlog_tb_utils
+
+
+
+provider:
+    name: github
+    user: germancq
+    repo: lea_block_cipher
+    version: main

@@ -1,0 +1,54 @@
+CAPI=2:
+
+name : ::katan_non_linear_function_b:0
+description : katan non linear function b 
+
+targets:
+  default:
+    filesets: 
+      - rtl
+
+  sim : 
+    flow : sim
+    flow_options :
+      tool : verilator 
+      verilator_options : [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module : katan_non_linear_function_b_test
+      timescale : 1ns/1ns
+      vcs_options : [-timescale=1ns/1ns]
+    filesets : [rtl ,cocotb]  
+    toplevel : non_linear_function_b
+    parameters :
+      - L2_LEN=19
+
+parameters :
+  L2_LEN :
+    datatype : int
+    paramtype : vlogparam
+
+filesets:
+  cocotb :
+    files :
+      - ecb_mode/cocotb/katan_non_linear_function_b_test.py : {file_type : user, copyto : .}
+      - ecb_mode/python/katan.py : {file_type : user, copyto : .}
+      - ecb_mode/python/LFSR.py : {file_type : user, copyto : .}
+    depend :
+      - vlog_tb_utils
+
+
+  rtl:
+    file_type: systemVerilogSource
+    files: 
+      - ecb_mode/hdl/non_linear_function_b.sv      
+
+provider:
+    name: github
+    user: germancq
+    repo: katan_block_cipher
+    version: main 
+
+
+
+
+
+

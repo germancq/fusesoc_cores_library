@@ -1,0 +1,24 @@
+CAPI=2:
+
+name : ::galois_arithmetic:0
+description : galois arithmetic module
+
+filesets :
+  rtl :
+    files :
+      - hdl/galois_adder.sv
+      - hdl/galois_multiplication.sv
+      - hdl/matrix_multiplication.sv
+      - hdl/polinomial_reduction.sv
+      - hdl/row_x_column.sv
+
+    file_type : systemVerilogSource
+
+targets :
+  default : {filesets : [rtl]}
+
+provider :
+  name : github
+  user : germancq
+  version : main
+  repo : Galois_arithmetic_cores

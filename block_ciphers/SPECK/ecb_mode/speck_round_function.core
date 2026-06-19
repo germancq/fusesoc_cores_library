@@ -1,0 +1,62 @@
+CAPI=2:
+
+name : ::speck_round_function:0
+description : speck round_function cte 
+
+targets:
+  default:
+    filesets: 
+      - rtl
+
+  sim : 
+    flow : sim
+    flow_options :
+      tool : verilator 
+      verilator_options : [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module : speck_round_function_test
+      timescale : 1ns/1ns
+      vcs_options : [-timescale=1ns/1ns]
+    filesets : [rtl ,cocotb]  
+    toplevel : round_function
+    parameters :
+      - N=16
+      - alfa=7
+      - beta=2
+
+parameters :
+  N :
+    datatype : int
+    paramtype : vlogparam
+  alfa :
+    datatype : int
+    paramtype : vlogparam
+  beta :
+    datatype : int
+    paramtype : vlogparam
+
+filesets:
+  cocotb :
+    files :
+      - ecb/cocotb/speck_round_function_test.py : {file_type : user, copyto : .}
+      - ecb/python/speck.py : {file_type : user, copyto : .}
+    depend :
+      - vlog_tb_utils
+
+
+  rtl:
+    file_type: systemVerilogSource
+    files: 
+      - ecb/hdl/round_function.sv      
+
+provider:
+    name: github
+    user: germancq
+    repo: speck_block_cipher
+    version: main
+
+
+
+
+
+
+

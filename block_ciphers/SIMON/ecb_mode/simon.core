@@ -1,0 +1,65 @@
+CAPI=2:
+
+name : ::simon:0
+description : simon cipher
+
+targets:
+  default:
+    filesets: 
+      - rtl
+
+  sim : 
+    flow : sim
+    flow_options :
+      tool : verilator 
+      verilator_options : [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module : simon_test
+      timescale : 1ns/1ns
+      vcs_options : [-timescale=1ns/1ns]
+    filesets : [rtl ,cocotb]  
+    toplevel : simon
+    parameters :
+      - N=16
+      - M=4
+
+parameters :
+  N :
+    datatype : int
+    paramtype : vlogparam
+  M :
+    datatype : int
+    paramtype : vlogparam
+
+filesets:
+  cocotb :
+    files :
+      - ecb_mode/cocotb/simon_test.py : {file_type : user, copyto : .}
+      - ecb_mode/python/simon.py : {file_type : user, copyto : .}
+    depend :
+      - vlog_tb_utils
+
+
+  rtl:
+    file_type: systemVerilogSource
+    files: 
+      - ecb_mode/hdl/simon.sv      
+    depend:
+      - counter
+      - register
+      - simon_key_schedule
+      - simon_encrypt
+
+provider:
+    name: github
+    user: germancq
+    repo: simon_block_cipher
+    version: main
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+CAPI=2:
+
+name : ::ascon_utils_modules:0
+description : ascon_utils_modules
+
+targets:
+  default:
+    filesets: 
+      - rtl
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files: 
+      - ecb_mode/hdl/ascon_modules_utils.sv      
+
+provider:
+    name: github
+    user: germancq
+    repo: ascon_block_cipher
+    version: main
+
+
+
+
+
+
+
+

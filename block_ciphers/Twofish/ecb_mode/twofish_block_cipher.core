@@ -28,8 +28,7 @@ filesets:
       - register
       - mux
       - counter
-      - galois_adder
-      - matrix_multiplication 
+      - galois_arithmetic
       - adder 
 
   cocotb:

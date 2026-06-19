@@ -1,0 +1,25 @@
+CAPI=2:
+
+name : ::helpers:1
+description : helpers
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - helpers/classes/utils_functions.sv
+      - helpers/packages/common_functions.sv
+
+
+provider :
+  name : github
+  user : germancq
+  repo : auxiliar_helpers_systemVerilog
+  version : main
+
+

@@ -1,0 +1,53 @@
+CAPI=2:
+
+name : ::simon_round_function:0
+description : simon round_function cte 
+
+targets:
+  default:
+    filesets: 
+      - rtl
+
+  sim : 
+    flow : sim
+    flow_options :
+      tool : verilator 
+      verilator_options : [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module : simon_round_function_test
+      timescale : 1ns/1ns
+      vcs_options : [-timescale=1ns/1ns]
+    filesets : [rtl ,cocotb]  
+    toplevel : round_function
+    parameters :
+      - N=16
+
+parameters :
+  N :
+    datatype : int
+    paramtype : vlogparam
+
+filesets:
+  cocotb :
+    files :
+      - ecb_mode/cocotb/simon_round_function_test.py : {file_type : user, copyto : .}
+      - ecb_mode/python/simon.py : {file_type : user, copyto : .}
+    depend :
+      - vlog_tb_utils
+
+
+  rtl:
+    file_type: systemVerilogSource
+    files: 
+      - ecb_mode/hdl/round_function.sv      
+
+provider:
+    name: github
+    user: germancq
+    repo: simon_block_cipher
+    version: main
+
+
+
+
+
+
