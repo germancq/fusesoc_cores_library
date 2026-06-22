@@ -1,0 +1,28 @@
+CAPI=2:
+
+name : ::wb_sdspi:1
+description : sdspi_wb 
+
+
+targets:
+  default:
+    filesets:
+      - rtl
+
+filesets:
+
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - wb_sdspi/without_interface/hdl/sdspi_wb.sv
+      - wb_sdspi/without_interface/hdl/sdspi_wb_bridge.sv
+    depend:
+      - sdspi 
+
+
+
+provider :
+  name : github
+  user : germancq
+  repo : Wishbone_Wrappers
+  version : main

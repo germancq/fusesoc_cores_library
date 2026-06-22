@@ -1,0 +1,87 @@
+CAPI=2:
+
+name : ::KDF_spongent:0 
+description : KDF_spongent core
+
+filesets :
+  cocotb :
+    files :
+      - spongent_kdf/cocotb/KDF_spongent_test.py : {file_type : user, copyto : .}
+      - spongent_kdf/python/keyDerivationFunction.py : {file_type : user, copyto : .}
+      - spongent_kdf/python/spongent.py : {file_type : user, copyto : .}
+      - spongent_kdf/python/LFSR.py : {file_type : user, copyto : .}
+    depend :
+      - vlog_tb_utils
+
+  rtl :
+    file_type: systemVerilogSource
+    files: 
+        - spongent_kdf/hdl/KDF_spongent.sv
+    depend :
+      - spongent
+      - register 
+      - counter
+
+targets :
+
+  default:
+    filesets:
+      - rtl
+
+  sim : 
+    flow : sim
+    flow_options :
+      tool : icarus
+      iverilog_options : [-g2012]
+      cocotb_module : KDF_spongent_test
+      timescale : 1ns/1ns
+      vcs_options : [-timescale=1ns/1ns]
+    filesets : [rtl,cocotb]  
+    toplevel : KDF_spongent 
+    parameters :
+      - N=88
+      - c=80
+      - r=8
+      - R=45
+      - lCounter_initial_state=0x05
+      - lCounter_feedback_coeff=0x61
+      - SALT_WIDTH=64
+      - COUNT_WIDTH=4
+      - PSW_WIDTH=80
+
+parameters :
+  N :
+    datatype : int
+    paramtype : vlogparam
+  c :
+    datatype : int
+    paramtype : vlogparam
+  r :
+    datatype : int
+    paramtype : vlogparam
+  R :
+    datatype : int
+    paramtype : vlogparam
+  lCounter_initial_state :
+    datatype : int
+    paramtype : vlogparam
+  lCounter_feedback_coeff :
+    datatype : int
+    paramtype : vlogparam
+  SALT_WIDTH :
+    datatype : int
+    paramtype : vlogparam
+  COUNT_WIDTH :
+    datatype : int
+    paramtype : vlogparam
+  PSW_WIDTH :
+    datatype : int
+    paramtype : vlogparam
+
+provider :
+  name : github
+  user : germancq
+  repo : KDF
+  version : main
+
+

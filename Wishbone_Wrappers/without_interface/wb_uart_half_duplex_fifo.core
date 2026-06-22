@@ -1,0 +1,49 @@
+CAPI=2:
+
+name : ::wb_uart_half_duplex_fifo:1
+description : wishbone interface for UART with FIFO 
+
+
+targets:
+  default:
+    filesets:
+      - rtl
+
+
+parameters :
+  BAUDIOS :
+    datatype : int
+    paramtype : generic
+  F_MHZ :
+    datatype : int
+    paramtype : generic
+  FIFO_DEPTH :
+    datatype : int
+    paramtype : generic
+  WB_ADDR_DIR :
+    datatype : int
+    paramtype : generic
+  WB_DATA_WIDTH :
+    datatype : int
+    paramtype : generic
+  OFFSET_ADDR :
+    datatype : int
+    paramtype : generic
+
+filesets:
+
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - wb_uart_half_duplex_fifo/without_interface/hdl/wb_uart_half_duplex_fifo.sv
+      - wb_uart_half_duplex_fifo/without_interface/hdl/uart_fifo_wb_bridge.sv
+    depend:
+      -  uart_half_duplex_fifo
+
+
+
+provider:
+    name: github
+    user: germancq
+    repo: Wishbone_Wrappers
+    version: main

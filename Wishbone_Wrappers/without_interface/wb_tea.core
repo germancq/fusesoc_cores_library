@@ -1,0 +1,48 @@
+CAPI=2:
+
+name : ::wb_tea:0
+description : tea block cipher with wishbone interface
+
+targets:
+   default: &default
+     filesets:
+       - rtl
+
+
+parameters :
+  KEY_LEN :
+    datatype : int
+    paramtype : vlogparam
+  BLK_LEN :
+    datatype : int
+    paramtype : vlogparam
+  WB_DATA_WIDTH :
+    datatype : int
+    paramtype : vlogparam
+  WB_ADDR_DIR :
+    datatype : int
+    paramtype : vlogparam
+  OFFSET_ADDR :
+    datatype : int
+    paramtype : vlogparam
+
+
+filesets:
+
+   rtl:
+     file_type: systemVerilogSource
+     files:
+       - wb_tea/without_interface/hdl/wb_tea.sv
+     depend:
+       - block_cipher_wb_bridge
+       - tea
+
+
+provider:
+    name: github
+    user: germancq
+    repo: Wishbone_Wrappers
+    version: main
+
+
+

@@ -1,0 +1,34 @@
+CAPI=2:
+
+name : ::WishboneInterface:1
+description : WishboneInterface
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+  
+parameters:
+  DATA_WIDTH:
+    datatype: int
+    paramtype: vlogparam
+  ADDR_WIDTH:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - WishboneInterface/hdl/whisbone_if.sv
+
+provider:
+    name: github
+    user: germancq
+    repo: Wishbone_Wrappers
+    version: main
+
+
+
+
+

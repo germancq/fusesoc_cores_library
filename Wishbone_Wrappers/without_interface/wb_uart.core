@@ -1,0 +1,70 @@
+CAPI=2:
+
+name : ::wb_uart:1
+description : wb_uart
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+  
+  sim:
+    flow: sim
+    flow_options:
+      tool: verilator
+      verilator_options: [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module: test_uart_wb
+      timescale: 1ns/1ns
+      vcs_options: [-timescale=1ns/1ns]
+    filesets: [rtl,cocotb]
+    toplevel: uart_wb
+    parameters:
+      - WB_DATA_WIDTH=8
+      - CLK_HZ=100000000
+      - BAUDIOS=9600
+      - WB_ADDR_DIR=2
+
+
+parameters:
+  WB_DATA_WIDTH:
+    datatype: int
+    paramtype: vlogparam
+  WB_ADDR_DIR:
+    datatype: int
+    paramtype: vlogparam
+  CLK_HZ:
+    datatype: int
+    paramtype: vlogparam
+  BAUDIOS:
+    datatype: int
+    paramtype: vlogparam
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - wb_uart/without_interface/hdl/uart_wb.sv
+      - wb_uart/without_interface/hdl/uart_wrapper.sv
+    depend:
+      - register
+      - uart
+
+  cocotb:
+     files:
+       - wb_uart/without_interface/cocotb/test_uart_wb.py : {file_type : user, copyto: .}
+       - wb_uart/without_interface/cocotb/WishboneMaster.py : {file_type : user, copyto: .}
+       - wb_uart/without_interface/cocotb/UART.py : {file_type : user, copyto: .}
+       - wb_uart/without_interface/cocotb/UART_RX.py : {file_type : user, copyto: .}
+       - wb_uart/without_interface/cocotb/UART_TX.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+
+provider:
+    name: github
+    user: germancq
+    repo: Wishbone_Wrappers
+    version: main
+
+
+

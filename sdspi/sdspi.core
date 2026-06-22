@@ -1,0 +1,27 @@
+CAPI=2:
+
+name : ::sdspi:0
+description : sd rw for spi protocol
+
+filesets :
+  rtl :
+    depend :
+      - counter
+      - register
+      - shift_register
+      - mux
+    files :
+      - hdl/sdspihost.sv
+      - hdl/sdcmd.sv
+      - hdl/spi_master.sv
+
+    file_type : systemVerilogSource
+
+targets :
+  default : {filesets : [rtl]}
+
+provider :
+  name : github
+  user : germancq
+  repo : sdspi
+  version : main

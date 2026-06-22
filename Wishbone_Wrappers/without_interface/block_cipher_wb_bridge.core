@@ -1,0 +1,45 @@
+CAPI=2:
+
+name : ::block_cipher_wb_bridge:0
+description : bridge for block ciphers
+
+targets:
+  default: &default
+    filesets:
+      - rtl
+
+
+parameters :
+  KEY_LEN :
+    datatype : int
+    paramtype : vlogparam
+  BLK_LEN :
+    datatype : int
+    paramtype : vlogparam
+  WB_DATA_WIDTH :
+    datatype : int
+    paramtype : vlogparam
+  WB_ADDR_DIR :
+    datatype : int
+    paramtype : vlogparam
+  OFFSET_ADDR :
+    datatype : int
+    paramtype : vlogparam
+
+
+filesets:
+
+   rtl:
+     file_type: systemVerilogSource
+     files:
+       - block_cipher_wb_bridge/without_interface/hdl/block_cipher_wb_bridge.sv
+     depend:
+       - register
+
+
+provider:
+    name: github
+    user: germancq
+    repo: Wishbone_Wrappers
+    version: main
+

@@ -1,0 +1,77 @@
+CAPI=2:
+
+name : ::hmac_spongent_iter:0
+description : HMAC based on spongent hash
+
+targets:
+    default:
+        filesets: 
+            - rtl
+
+
+  sim : 
+    flow : sim
+    flow_options :
+      tool : icarus
+      iverilog_options : [-g2012]
+      cocotb_module : hmac_spongent_iter_test
+      timescale : 1ns/1ns
+      vcs_options : [-timescale=1ns/1ns]
+    filesets : [rtl,cocotb]  
+    toplevel : hmac_spongent_iter 
+    parameters :
+      - N=256
+      - c=256
+      - r=16
+      - R=140
+      - lCounter_initial_state=0x9E
+      - lCounter_feedback_coeff=0x11D
+      - KEY_WIDTH=64
+
+parameters :
+  N :
+    datatype : int
+    paramtype : vlogparam
+  c :
+    datatype : int
+    paramtype : vlogparam
+  r :
+    datatype : int
+    paramtype : vlogparam
+  R :
+    datatype : int
+    paramtype : vlogparam
+  lCounter_initial_state :
+    datatype : int
+    paramtype : vlogparam
+  lCounter_feedback_coeff :
+    datatype : int
+    paramtype : vlogparam
+  KEY_WIDTH :
+    datatype : int
+    paramtype : vlogparam
+
+filesets:
+    rtl:
+        file_type: systemVerilogSource
+        files: 
+            - spongent_iter_hmac/hdl/hmac_spongent_iter.sv
+        depend:
+            - spongent_iter
+            - counter
+            - register
+
+    cocotb :
+      files :
+        - spongent_iter_hmac/cocotb/hmac_spongent_iter_test.py : {file_type : user, copyto : .}
+        - spongent_iter_hmac/python/hmac_spongent_iter.py : {file_type : user, copyto : .}
+        - spongent_iter_hmac/python/spongent_iter.py : {file_type : user, copyto : .}
+        - spongent_iter_hmac/python/LFSR.py : {file_type : user, copyto : .}
+      depend :
+        - vlog_tb_utils
+
+provider:
+    name: github
+    user: germancq
+    repo: HMAC
+    version: main

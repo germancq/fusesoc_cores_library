@@ -1,0 +1,56 @@
+CAPI=2:
+
+name : ::hirose_present:0
+description : hirose hash with present block cipher
+
+targets:
+  default:
+        filesets: 
+            - rtl
+
+  sim : 
+    flow : sim
+    flow_options :
+      tool : verilator 
+      verilator_options : [-Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-SELRANGE]
+      cocotb_module : hirose_present_wrapper_test
+      timescale : 1ns/1ns
+      vcs_options : [-timescale=1ns/1ns]
+    filesets : [rtl ,cocotb]  
+    toplevel : hirose_present_wrapper
+    parameters:
+       - DATA_WIDTH = 64
+
+parameters :
+  DATA_WIDTH :
+    datatype : int
+    paramtype : vlogparam
+
+
+filesets:
+   rtl:
+        file_type: systemVerilogSource
+        files: 
+            - hdl/hirose_present_wrapper.sv
+            - hdl/hirose_present.sv
+            
+        depend:
+            - counter
+            - present_block_cipher
+            - memory_module
+            - register
+
+
+   cocotb:
+     files:
+       - cocotb/hirose_present_wrapper_test.py : {file_type : user, copyto: .}
+       - python/hirose_present.py : {file_type : user, copyto: .}
+       - python/present.py : {file_type : user, copyto: .}
+     depend:
+       - vlog_tb_utils
+
+provider:
+    name: github
+    user: germancq
+    repo: hirose_present_hash_function
+    version: main

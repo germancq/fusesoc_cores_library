@@ -1,0 +1,47 @@
+CAPI=2:
+
+name : ::wb_clefia:0
+description : clefia block cipher with wishbone interface
+
+targets:
+   default: &default
+     filesets:
+       - rtl
+
+
+parameters :
+  KEY_LEN :
+    datatype : int
+    paramtype : vlogparam
+  BLK_LEN :
+    datatype : int
+    paramtype : vlogparam
+  WB_DATA_WIDTH :
+    datatype : int
+    paramtype : vlogparam
+  WB_ADDR_DIR :
+    datatype : int
+    paramtype : vlogparam
+  OFFSET_ADDR :
+    datatype : int
+    paramtype : vlogparam
+
+filesets:
+
+   rtl:
+     file_type: systemVerilogSource
+     files:
+       - wb_clefia/without_interface/hdl/wb_clefia.sv
+     depend:
+       - block_cipher_wb_bridge
+       - clefia
+
+
+provider:
+    name: github
+    user: germancq
+    repo: Wishbone_Wrappers
+    version: main
+
+
+

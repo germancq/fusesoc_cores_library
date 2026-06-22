@@ -1,0 +1,28 @@
+CAPI=2:
+
+name : ::wishbone_bootmodule:1
+description : Wishbone BootLoader Module
+
+targets:
+   default: &default
+     filesets:
+       - rtl
+
+
+filesets:
+  rtl:
+    file_type: systemVerilogSource
+    files:
+      - hdl/bootloaderModule.sv
+    depend:
+      - counter
+      - register
+
+
+provider:
+    name: github
+    user: germancq
+    repo: Wishbone_BootModule
+    version: main
+
+
