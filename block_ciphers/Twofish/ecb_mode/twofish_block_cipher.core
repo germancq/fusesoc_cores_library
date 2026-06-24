@@ -23,7 +23,7 @@ filesets:
   rtl:
     file_type: systemVerilogSource
     files:
-      - twofish_block_cipher/ecb_mode/hdl/twofish.sv
+      - ecb_mode/hdl/twofish.sv
     depend:
       - register
       - mux
@@ -33,8 +33,8 @@ filesets:
 
   cocotb:
      files:
-       - twofish_block_cipher/ecb_mode/cocotb/twofish_test.py : {file_type : user, copyto: .}
-       - twofish_block_cipher/ecb_mode/python/twofish.py : {file_type : user, copyto: .}
+       - ecb_mode/cocotb/twofish_test.py : {file_type : user, copyto: .}
+       - ecb_mode/python/twofish.py : {file_type : user, copyto: .}
      depend:
        - vlog_tb_utils
 

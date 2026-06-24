@@ -23,7 +23,7 @@ filesets:
   rtl:
     file_type: systemVerilogSource
     files:
-      - twofish_block_cipher/ctr_mode/hdl/twofish_ctr.sv
+      - ctr_mode/hdl/twofish_ctr.sv
     depend:
       - register
       - mux
@@ -33,8 +33,8 @@ filesets:
 
   cocotb:
      files:
-       - twofish_block_cipher/ctr_mode/cocotb/twofish_ctr_test.py : {file_type : user, copyto: .}
-       - twofish_block_cipher/ctr_mode/python/twofish_ctr.py : {file_type : user, copyto: .}
+       - ctr_mode/cocotb/twofish_ctr_test.py : {file_type : user, copyto: .}
+       - ctr_mode/python/twofish_ctr.py : {file_type : user, copyto: .}
      depend:
        - vlog_tb_utils
 
