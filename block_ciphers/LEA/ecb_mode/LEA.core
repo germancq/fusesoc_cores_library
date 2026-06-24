@@ -40,12 +40,12 @@ filesets:
             - register
             - helpers
 
-  cocotb :
-    files :
-      - ecb_mode/cocotb/lea_test.py : {file_type : user, copyto : .}
-      - ecb_mode/python/LEA.py : {file_type : user, copyto : .}
-    depend :
-      - vlog_tb_utils
+    cocotb :
+      files :
+        - ecb_mode/cocotb/lea_test.py : {file_type : user, copyto : .}
+        - ecb_mode/python/LEA.py : {file_type : user, copyto : .}
+      depend :
+        - vlog_tb_utils
 
 
 
