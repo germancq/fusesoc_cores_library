@@ -23,15 +23,15 @@ filesets:
   rtl:
     file_type: systemVerilogSource
     files:
-      - present_block_cipher/ctr_mode/hdl/present_ctr.sv
+      - ctr_mode/hdl/present_ctr.sv
     depend:
       - present_block_cipher
       - adder
 
   cocotb:
      files:
-       - present_block_cipher/ctr_mode/cocotb/present_ctr_test.py : {file_type : user, copyto: .}
-       - present_block_cipher/ctr_mode/python/present_ctr.py : {file_type : user, copyto: .}
+       - ctr_mode/cocotb/present_ctr_test.py : {file_type : user, copyto: .}
+       - ctr_mode/python/present_ctr.py : {file_type : user, copyto: .}
      depend
        - vlog_tb_utils
 
