@@ -12,8 +12,8 @@ filesets:
   rtl:
     file_type: systemVerilogSource
     files:
-      - helpers/classes/utils_functions.sv
-      - helpers/packages/common_functions.sv
+      - classes/utils_functions.sv
+      - packages/common_functions.sv
 
 
 provider :
