@@ -32,7 +32,7 @@ filesets:
      files:
        - ctr_mode/cocotb/present_ctr_test.py : {file_type : user, copyto: .}
        - ctr_mode/python/present_ctr.py : {file_type : user, copyto: .}
-     depend
+     depend:
        - vlog_tb_utils
 
 
