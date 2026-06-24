@@ -13,6 +13,8 @@ filesets :
       - hdl/row_x_column.sv
 
     file_type : systemVerilogSource
+    depend:
+      - mux
 
 targets :
   default : {filesets : [rtl]}
