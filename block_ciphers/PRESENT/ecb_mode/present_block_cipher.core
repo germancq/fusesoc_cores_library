@@ -23,8 +23,8 @@ filesets:
   rtl:
     file_type: systemVerilogSource
     files:
-      - present_block_cipher/ecb_mode/hdl/present.sv
-      - present_block_cipher/ecb_mode/hdl/present_misc.sv
+      - ecb_mode/hdl/present.sv
+      - ecb_mode/hdl/present_misc.sv
     depend:
       - register
       - counter
@@ -32,8 +32,8 @@ filesets:
 
   cocotb:
      files:
-       - present_block_cipher/ecb_mode/cocotb/present_test.py : {file_type : user, copyto: .}
-       - present_block_cipher/ecb_mode/python/present.py : {file_type : user, copyto: .}
+       - ecb_mode/cocotb/present_test.py : {file_type : user, copyto: .}
+       - ecb_mode/python/present.py : {file_type : user, copyto: .}
      depend:
        - vlog_tb_utils
 
