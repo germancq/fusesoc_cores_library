@@ -56,9 +56,9 @@ parameters :
 filesets :
   cocotb :
     files :
-      - spongent/cocotb/spongent_iter_test.py : {file_type : user, copyto : .}
-      - spongent/python/spongent_iter.py : {file_type : user, copyto : .}
-      - spongent/python/LFSR.py : {file_type : user, copyto : .}
+      - spongent_iter/cocotb/spongent_iter_test.py : {file_type : user, copyto : .}
+      - spongent_iter/python/spongent_iter.py : {file_type : user, copyto : .}
+      - spongent_iter/python/LFSR.py : {file_type : user, copyto : .}
     depend :
       - vlog_tb_utils
 
