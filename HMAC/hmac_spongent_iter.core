@@ -4,7 +4,7 @@ name : ::hmac_spongent_iter:0
 description : HMAC based on spongent hash
 
 targets:
-    default:
+  default:
         filesets: 
             - rtl
 
