@@ -64,7 +64,7 @@ filesets :
 
   rtl :
     file_type: systemVerilogSource
-      files: 
+    files: 
         - spongent/hdl/spongent.sv
     depend :
       - counter
