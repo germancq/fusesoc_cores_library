@@ -27,7 +27,6 @@ targets :
       - R=140
       - lCounter_initial_state=0x9E
       - lCounter_feedback_coeff=0x11D
-      - DATA_WIDTH=64
 
 parameters :
   N :
@@ -46,9 +45,6 @@ parameters :
     datatype : int
     paramtype : vlogparam
   lCounter_feedback_coeff :
-    datatype : int
-    paramtype : vlogparam
-  DATA_WIDTH :
     datatype : int
     paramtype : vlogparam
 
