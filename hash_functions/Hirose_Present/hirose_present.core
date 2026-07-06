@@ -19,10 +19,10 @@ targets:
     filesets : [rtl ,cocotb]  
     toplevel : hirose_present_wrapper
     parameters:
-       - DATA_WIDTH = 64
+       - DATA_WIDTH=64
 
 parameters :
-  DATA_WIDTH :
+  DATA_WIDTH:
     datatype : int
     paramtype : vlogparam
 
