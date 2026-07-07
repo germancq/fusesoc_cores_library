@@ -5,9 +5,8 @@ description : HMAC based on spongent hash
 
 targets:
   default:
-        filesets: 
-            - rtl
-
+    filesets: 
+      - rtl
 
   sim : 
     flow : sim
