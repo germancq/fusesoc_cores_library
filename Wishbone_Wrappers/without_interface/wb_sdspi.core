@@ -1,7 +1,7 @@
 CAPI=2:
 
 name : ::wb_sdspi:1
-description : sdspi_wb 
+description : wb_sdspi 
 
 
 targets:
@@ -14,7 +14,7 @@ filesets:
   rtl:
     file_type: systemVerilogSource
     files:
-      - wb_sdspi/without_interface/hdl/sdspi_wb.sv
+      - wb_sdspi/without_interface/hdl/wb_sdspi.sv
       - wb_sdspi/without_interface/hdl/sdspi_wb_bridge.sv
     depend:
       - sdspi 
