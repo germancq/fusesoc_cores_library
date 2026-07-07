@@ -14,7 +14,7 @@ parameters :
   BAUDIOS :
     datatype : int
     paramtype : generic
-  F_MHZ :
+  CLK_HZ :
     datatype : int
     paramtype : generic
   FIFO_DEPTH :
